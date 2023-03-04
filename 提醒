@@ -1,0 +1,21 @@
+import requests
+... import yfinance as yf
+... 
+... # 设置你要监控的股票代码和价格
+... tickerSymbol = 'AAPL'
+... targetPrice = 150
+... 
+... # 获取当前股价
+... tickerData = yf.Ticker(tickerSymbol)
+... tickerInfo = tickerData.info
+... currentPrice = tickerInfo['regularMarketPrice']
+... 
+... # 如果当前股价高于目标价格，则发送提醒
+... if currentPrice > targetPrice:
+...     # 填写你的Access Token
+...     token = '2xGfM8DqnU7eKhSIJTZsiVpnQmh029oVGCImxhB0liD'
+...     # 填写要发送提醒的消息
+...     message = '股票价格超过目标价格！当前价格为：' + str(currentPrice)
+...     # 发送HTTP POST请求，将消息发送到Line
+...     requests.post('https://notify-api.line.me/api/notify', headers={'Authorization': 'Bearer ' + token}, data={'message': message})
+
